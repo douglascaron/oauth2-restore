@@ -15,7 +15,7 @@ async def callback(code : str):
     if profile == False:
         return "Permission not granted"
     con,cur = opendb()
-    cur.execute("INSERT INTO users VALUES (?, ?);", (profile["id"], exchange_res["refresh_token"]))
+    cur.execute("INSERT OR REPLACE INTO users VALUES (?, ?);", (profile["id"], exchange_res["refresh_token"]))
     con.commit()
     con.close()
     role.add_role(config.guildid,profile["id"], config.roleid)
